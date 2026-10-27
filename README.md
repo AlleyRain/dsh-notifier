@@ -102,6 +102,19 @@ Additional details:
 
 ## Troubleshooting
 
+### Installing from the GitHub URL times out
+
+DSH's Plugin Manager runs a bounded `git ls-remote` GitHub check before it starts pnpm. Its default `githubConnectionTimeoutMs` is 5000 ms; on a slow GitHub connection the check times out before the package is fetched. Raise it in the profile's user patch:
+
+```yaml
+- id: plugin-manager
+  name: "@deepseek-ai/dsh-plugin-manager"
+  config:
+    githubConnectionTimeoutMs: 60000
+```
+
+Then retry the install. This is a DSH Plugin Manager setting, not a setting of this plugin.
+
 ### The Enable button is still shown, or the test notification does not appear
 
 - Check the site's notification permission in the browser's site settings.
